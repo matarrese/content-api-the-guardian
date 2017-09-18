@@ -52,7 +52,7 @@ public class GuardianContentApiTest extends TestCase {
 
     given().when()
         .get("http://content.guardianapis.com/search?q=bitcoin&api-key=" + apiKey)
-        .then().body("response.results.sectionName", hasItems(containsString("Technology")));
+        .then().body("response.results.sectionId", hasItems(containsString("technology")));
   }
 
 
