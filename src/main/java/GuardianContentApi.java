@@ -1,15 +1,45 @@
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
+import bean.Article;
+import bean.ResponseWrapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mashape.unirest.request.GetRequest;
 import com.mashape.unirest.request.HttpRequest;
-import org.json.JSONArray;
 
 public class GuardianContentApi {
+
+  static {
+// Only one time
+    Unirest.setObjectMapper(new ObjectMapper() {
+      private com.fasterxml.jackson.databind.ObjectMapper jacksonObjectMapper
+          = new com.fasterxml.jackson.databind.ObjectMapper();
+
+      public <T> T readValue(String value, Class<T> valueType) {
+        try {
+          return jacksonObjectMapper.readValue(value, valueType);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      public String writeValue(Object value) {
+        try {
+          return jacksonObjectMapper.writeValueAsString(value);
+        } catch (JsonProcessingException e) {
+          throw new RuntimeException(e);
+        }
+      }
+    });
+  }
 
   private final static String TARGET_URL = "http://content.guardianapis.com/search";
   private final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -34,11 +64,13 @@ public class GuardianContentApi {
     this.toDate = date;
   }
 
-  public HttpResponse<JsonNode> getContent() throws UnirestException {
+  public List<Article> getContent() throws UnirestException {
   return getContent(null);
   }
 
-  public HttpResponse<JsonNode> getContent(String query) throws UnirestException {
+  public List<Article> getContent(String query) throws UnirestException {
+    List<Article> list = new ArrayList<>();
+
     HttpRequest request = Unirest.get(TARGET_URL)
         .queryString("api-key", apiKey)
         .header("accept", "application/json");
@@ -57,6 +89,9 @@ public class GuardianContentApi {
       request.queryString("to-date", dateFormat.format(toDate));
     }
 
-   return request.asJson();
+    HttpResponse<ResponseWrapper> json = request.asObject(ResponseWrapper.class);
+    list.addAll(Arrays.asList(json.getBody().getResponse().getResults()));
+    return list;
+
   }
 }
