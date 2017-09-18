@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import bean.Article;
+import bean.Response;
 import bean.ResponseWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mashape.unirest.http.HttpResponse;
@@ -42,7 +43,7 @@ public class GuardianContentApi {
   }
 
   private final static String TARGET_URL = "http://content.guardianapis.com/search";
-  private final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+  private final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
   private final String apiKey;
   private String section;
   private Date toDate;
@@ -64,12 +65,11 @@ public class GuardianContentApi {
     this.toDate = date;
   }
 
-  public List<Article> getContent() throws UnirestException {
+  public Response getContent() throws UnirestException {
   return getContent(null);
   }
 
-  public List<Article> getContent(String query) throws UnirestException {
-    List<Article> list = new ArrayList<>();
+  public Response getContent(String query) throws UnirestException {
 
     HttpRequest request = Unirest.get(TARGET_URL)
         .queryString("api-key", apiKey)
@@ -89,9 +89,8 @@ public class GuardianContentApi {
       request.queryString("to-date", dateFormat.format(toDate));
     }
 
-    HttpResponse<ResponseWrapper> json = request.asObject(ResponseWrapper.class);
-    list.addAll(Arrays.asList(json.getBody().getResponse().getResults()));
-    return list;
+    HttpResponse<ResponseWrapper> response = request.asObject(ResponseWrapper.class);
+    return response.getBody().getResponse();
 
   }
 }
