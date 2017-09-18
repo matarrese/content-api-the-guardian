@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import bean.Article;
 import bean.Response;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import junit.framework.TestCase;
@@ -66,6 +67,18 @@ public class GuardianContentApiTest extends TestCase {
     Response responseMocked = test.getContent("bitcoin");
     assertEquals(3, responseMocked.getCurrentPage());
     assertEquals(10, responseMocked.getPages());
+  }
+
+  @org.junit.Test
+  public void testMockingClient3() throws UnirestException {
+
+    GuardianContentApi test = mock(GuardianContentApi.class);
+    Response response = new Response();
+    Article[] articles = new Article[]{new Article()};
+    response.setResults(articles);
+    when( test.getContent("bitcoin")).thenReturn(response);
+    Response responseMocked = test.getContent("bitcoin");
+    assertEquals(1, responseMocked.getResults().length);
   }
   
 }
