@@ -13,7 +13,7 @@ import junit.framework.TestCase;
 public class GuardianContentApiTest extends TestCase {
   private final String apiKey = "30c5a1f2-3132-4f94-bba1-38b397fdec67";
 
-  // I thought that was useful to insert some tests to check that endpoint is working well as expected
+  // I thought it was useful to insert some tests to check that the endpoint is working well as expected
 
   @org.junit.Test
   public void testApiEndpoint1() {
