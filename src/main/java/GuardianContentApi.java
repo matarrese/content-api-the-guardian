@@ -1,16 +1,11 @@
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
-import bean.Article;
 import bean.Response;
 import bean.ResponseWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
