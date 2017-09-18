@@ -39,3 +39,10 @@ If you need to specify as well a interval of time:
     Response response = api.getContent("bitcoin");
     Arrays.stream(response.getResults()).forEach(System.out::println);
 ```
+
+In order to build the project, open the test java file `GuardianContentApiTest` set the `apiKey`, and run
+from the command line:
+
+```bash
+mvn install
+```
