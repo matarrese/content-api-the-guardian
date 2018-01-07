@@ -41,6 +41,7 @@ public class GuardianContentApi {
   private final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
   private final String apiKey;
   private String section;
+  private String tag;
   private Date toDate;
   private Date fromDate;
 
@@ -64,6 +65,14 @@ public class GuardianContentApi {
   return getContent(null);
   }
 
+  public String getTag() {
+    return tag;
+  }
+
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
+
   public Response getContent(String query) throws UnirestException {
 
     HttpRequest request = Unirest.get(TARGET_URL)
@@ -75,6 +84,10 @@ public class GuardianContentApi {
 
     if (section != null && !section.isEmpty()) {
       request.queryString("section", section);
+    }
+
+    if (tag != null && !tag.isEmpty()) {
+      request.queryString("tag", tag);
     }
 
     if (fromDate != null){
