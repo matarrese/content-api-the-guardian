@@ -1,5 +1,8 @@
 package bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Article {
   String id;
   String type;
