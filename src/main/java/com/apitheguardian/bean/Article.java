@@ -1,4 +1,4 @@
-package bean;
+package com.apitheguardian.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

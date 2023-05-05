@@ -1,9 +1,11 @@
+package com.apitheguardian;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import bean.Response;
-import bean.ResponseWrapper;
+import com.apitheguardian.bean.Response;
+import com.apitheguardian.bean.ResponseWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.ObjectMapper;

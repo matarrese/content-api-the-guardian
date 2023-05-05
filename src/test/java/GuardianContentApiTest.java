@@ -5,8 +5,9 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import bean.Article;
-import bean.Response;
+import com.apitheguardian.bean.Article;
+import com.apitheguardian.bean.Response;
+import com.apitheguardian.GuardianContentApi;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import junit.framework.TestCase;
 
