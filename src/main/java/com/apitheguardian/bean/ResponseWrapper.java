@@ -1,4 +1,4 @@
-package bean;
+package com.apitheguardian.bean;
 
 public class ResponseWrapper {
 
